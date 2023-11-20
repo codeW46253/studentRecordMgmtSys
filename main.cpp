@@ -1,6 +1,6 @@
 /**
  * 
- * File name   : StudentRcdMgntSys/main.cpp
+ * File name   : StudentRcdMgmtSys/main.cpp
  * Description : This program is made to manage student records for a fictional school
  *              The target of this project is to demonstrate how user-defined function
  *              are defined and used in a program.
