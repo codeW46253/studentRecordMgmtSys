@@ -134,7 +134,7 @@ int main() {
                 case 4: runProgram = false;                                                                                      // Exit Program
                     break;                    
                     
-                default: cout << "Function not Available" << endl;                                                                       // Error Catch if function code inputed is invalid
+                default: cout << "Function not Available" << endl;                                                               // Error Catch if function code inputed is invalid
                     break;
             }
         }
@@ -156,7 +156,7 @@ int main() {
                 case 4: runProgram = false;                                                                                      // Exit Program
                     break;
 
-                default: cout << "Function not Available" << endl;                                                                       // Error Catch if function code inputed is invalid
+                default: cout << "Function not Available" << endl;                                                               // Error Catch if function code inputed is invalid
                     break;
             }
         }
@@ -168,7 +168,6 @@ int main() {
     cout << "Program Ended" << endl;
     return 0;
 }
-//------------------------------------------------------------------------------------------------------------------------------------------------------------- End: Main function
 
 /** Input Students' Data function
  * 
@@ -187,7 +186,7 @@ void inputStudentData(  int (&ids)[],         // List of IDs
                         int maxData) {        // Maximum number of student
     // input operation
     for (int dataIndex = 0; dataIndex < maxData; dataIndex++) {
-        cout << "\nInput Student's Data:\n" << endl;
+        cout << "\nInput Student" << (dataIndex + 1) << " Data:\n" << endl;
 
         cout << "ID"         << setfill('-') << setw(13) << ":"; cin >> ids[dataIndex];
         cout << "Name"       << setfill('-') << setw(11) << ":"; cin >> names[dataIndex];
