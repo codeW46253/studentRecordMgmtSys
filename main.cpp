@@ -14,33 +14,32 @@
 using namespace std;
 
 // Global Variables declaration
-//------------------------------------------------------------------------------------------------------------------------------------------------------------- Start: Variables[Global Use]
-const string schoolName   = "Starlight High School";    // school name
-const int    studentLimit = 50;                         // the limit for number of student
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+const string schoolName = "Starlight High School";    // school name
+const int studentLimit  = 50;                         // the limit for number of student
 
-int studentID[studentLimit];                                        // Students' ID
-string studentName[studentLimit];                                   // Students' Name
-double scores[studentLimit];                                        // Students' Score
-int attendances[studentLimit];                                      // Students' Attendeance
-//------------------------------------------------------------------------------------------------------------------------------------------------------------- End: Variables[Global Use]
+int studentID[studentLimit];                          // Students' ID
+string studentName[studentLimit];                     // Students' Name
+double scores[studentLimit];                          // Students' Score
+int attendances[studentLimit];                        // Students' Attendeance
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // functions declarations
-//------------------------------------------------------------------------------------------------------------------------------------------------------------- Start: function declaration
-void    inputStudentData(   int (&ids)[],
-                            string (&names)[],
-                            double (&scores)[],
-                            int (&attendances)[],
-                            int maxData);                   // Data Input
+void inputStudentData(   int (&ids)[],
+                         string (&names)[],
+                         double (&scores)[],
+                         int (&attendances)[],
+                         int maxData);               // Data Input
 
-double  calculateAverageScores(     double scoreArray[],
-                                    int numStudent);             // Calculate Average Scores
+double  calculateAverageScores( double scoreArray[],
+                                int numStudent);     // Calculate Average Scores
 
 void    displayStudentRecords(  int ids[],
                                 string names[],
                                 double scores[],
                                 int attendances[],
-                                int maxData);               // Display Student Records
-//------------------------------------------------------------------------------------------------------------------------------------------------------------- End: function declaration
+                                int maxData);        // Display Student Records
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
  * Sample Data
@@ -60,7 +59,7 @@ void    displayStudentRecords(  int ids[],
 */
 bool usingSampleData = false;           // change to true for using sample data
 
-int usingLimitedSample = 10;
+int usingLimitedSample =  10;           // set a number of sample to be used in a range 1-50
 int sampleId[] = {                      // sample Id
     80000, 80001, 80002, 80003, 80004, 80005, 80006, 80007, 80008, 80009,
     80010, 80011, 80012, 80013, 80014, 80015, 80016, 80017, 80018, 80019,
@@ -89,7 +88,7 @@ int sampleAttendance[] = {              // sample Attendance
     40, 40, 40, 40, 40, 40, 40, 40, 40, 40,
     40, 40, 40, 40, 40, 40, 40, 40, 40, 40
 };
-//------------------------------------------------------------------------------------------------------------------------------------------------------------- End: Sample Data[Global use]
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -98,8 +97,7 @@ int sampleAttendance[] = {              // sample Attendance
  * 
  * Description:
  *     Main function is where the program will run.
-*/ 
-//------------------------------------------------------------------------------------------------------------------------------------------------------------- Start: Main function
+*/
 int main() {
     // the program will run until Exit action called
     bool runProgram = true;
