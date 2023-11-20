@@ -8,7 +8,8 @@
  * This code also gives user to check whether the string can be convert into an
  * integer or a double with floating point.
  * 
- * 
+ * Programer : Zul Iskandar bin Zainorhan
+ * Date      : 20th November 2023
  * ------------------------------------------------------------------------------------------------------------------------------
 */
 
