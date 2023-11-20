@@ -108,10 +108,10 @@ int main() {
         cout << "School Name: " << schoolName      << endl;
 
         cout << "\n\nPlease Choose an Action:"     << endl;
-        cout << "0 - Input Student Data"           << endl;
-        cout << "1 - Calculate Average Score"      << endl;
-        cout << "2 - Display Student Records"      << endl;
-        cout << "3 - Exit"                         << endl;
+        cout << "1 - Input Student Data"           << endl;
+        cout << "2 - Calculate Average Score"      << endl;
+        cout << "3 - Display Student Records"      << endl;
+        cout << "4 - Exit"                         << endl;
 
         int funcCode;
         cout << "\nAction Code: ";
@@ -134,7 +134,7 @@ int main() {
                 case 4: runProgram = false;                                                                                      // Exit Program
                     break;                    
                     
-                default: cout << "Function not Available";                                                                       // Error Catch if function code inputed is invalid
+                default: cout << "Function not Available" << endl;                                                                       // Error Catch if function code inputed is invalid
                     break;
             }
         }
@@ -156,7 +156,7 @@ int main() {
                 case 4: runProgram = false;                                                                                      // Exit Program
                     break;
 
-                default: cout << "Function not Available";                                                                       // Error Catch if function code inputed is invalid
+                default: cout << "Function not Available" << endl;                                                                       // Error Catch if function code inputed is invalid
                     break;
             }
         }
