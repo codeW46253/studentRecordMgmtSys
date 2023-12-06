@@ -1,6 +1,6 @@
 /**
  * 
- * File name   : StudentRcdMgmtSys/main.cpp
+ * File name   : StudentRcdMgntSys/main.cpp
  * Description : This program is made to manage student records for a fictional school
  *              The target of this project is to demonstrate how user-defined function
  *              are defined and used in a program.
@@ -11,35 +11,11 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <bits/stdc++.h>
+
+#include "numString.cpp"
+
 using namespace std;
-
-// Global Variables declaration
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
-const string schoolName = "Starlight High School";    // school name
-const int studentLimit  = 50;                         // the limit for number of student
-
-int studentID[studentLimit];                          // Students' ID
-string studentName[studentLimit];                     // Students' Name
-double scores[studentLimit];                          // Students' Score
-int attendances[studentLimit];                        // Students' Attendeance
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-// functions declarations
-void inputStudentData(   int (&ids)[],
-                         string (&names)[],
-                         double (&scores)[],
-                         int (&attendances)[],
-                         int maxData);               // Data Input
-
-double  calculateAverageScores( double scoreArray[],
-                                int numStudent);     // Calculate Average Scores
-
-void    displayStudentRecords(  int ids[],
-                                string names[],
-                                double scores[],
-                                int attendances[],
-                                int maxData);        // Display Student Records
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
  * Sample Data
@@ -59,7 +35,7 @@ void    displayStudentRecords(  int ids[],
 */
 bool usingSampleData = false;           // change to true for using sample data
 
-int usingLimitedSample =  10;           // set a number of sample to be used in a range 1-50
+int usingLimitedSample = 10;
 int sampleId[] = {                      // sample Id
     80000, 80001, 80002, 80003, 80004, 80005, 80006, 80007, 80008, 80009,
     80010, 80011, 80012, 80013, 80014, 80015, 80016, 80017, 80018, 80019,
@@ -75,11 +51,11 @@ string sampleName[] = {                 // sample Name
     "N40", "N41", "N42", "N43", "N44", "N45", "N46", "N47", "N48", "N49"
 };
 double sampleScores[] = {               // sample Scores
-    100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
-    100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
-    100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
-    100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
-    100, 100, 100, 100, 100, 100, 100, 100, 100, 100
+    49, 57, 40, 55, 87, 64, 73, 81, 90, 89,
+    49, 57, 40, 55, 87, 64, 73, 81, 90, 89,
+    49, 57, 40, 55, 87, 64, 73, 81, 90, 89,
+    49, 57, 40, 55, 87, 64, 73, 81, 90, 89,
+    49, 57, 40, 55, 87, 64, 73, 81, 90, 89
 };
 int sampleAttendance[] = {              // sample Attendance
     40, 40, 40, 40, 40, 40, 40, 40, 40, 40,
@@ -88,17 +64,56 @@ int sampleAttendance[] = {              // sample Attendance
     40, 40, 40, 40, 40, 40, 40, 40, 40, 40,
     40, 40, 40, 40, 40, 40, 40, 40, 40, 40
 };
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------- End: Sample Data[Global use]
 
 
+// Global Variables declaration
+//------------------------------------------------------------------------------------------------------------------------------------------------------------- Start: Variables[Global Use]
+const string schoolName   = "Starlight High School";    // school name
+const int    studentLimit = 50;                         // the limit for number of student
+
+int studentID[studentLimit];                                        // Students' ID
+string studentName[studentLimit];                                   // Students' Name
+double scores[studentLimit];                                        // Students' Score
+int attendances[studentLimit];                                      // Students' Attendeance
+//------------------------------------------------------------------------------------------------------------------------------------------------------------- End: Variables[Global Use]
+
+// functions declarations
+//------------------------------------------------------------------------------------------------------------------------------------------------------------- Start: function declaration
+void    inputStudentData(   int (&ids)[],
+                            string (&names)[],
+                            double (&scores)[],
+                            int (&attendances)[],
+                            int maxData,
+                            bool autoID);                   // Data Input
+
+double  calculateAverageScores(     double scoreArray[],
+                                    int numStudent);             // Calculate Average Scores
+
+void    displayStudentRecords(  int ids[],
+                                string names[],
+                                double scores[],
+                                int attendances[],
+                                int maxData);               // Display Student Records
+//------------------------------------------------------------------------------------------------------------------------------------------------------------- End: function declaration
 
 /**
  * Main function
  * 
  * Description:
  *     Main function is where the program will run.
-*/
+*/ 
+//------------------------------------------------------------------------------------------------------------------------------------------------------------- Start: Main function
 int main() {
+    // initiallize all data to 0
+    for (int dataIndex = 0; dataIndex < studentLimit; dataIndex++) {
+        studentID[dataIndex] = 0;
+        studentName[dataIndex] = "-";
+        scores[dataIndex] = 0;
+        attendances[dataIndex] = 0;
+
+    }
+
     // the program will run until Exit action called
     bool runProgram = true;
     while (runProgram) {
@@ -113,50 +128,71 @@ int main() {
         cout << "3 - Display Student Records"      << endl;
         cout << "4 - Exit"                         << endl;
 
-        int funcCode;
+        char funcCode;
         cout << "\nAction Code: ";
         cin >> funcCode;
 
         // if not using sample data
         if (!usingSampleData){
             switch (funcCode) {
-                case 1: inputStudentData(studentID, studentName, scores, attendances, studentLimit);                             // Input Student Data
-                    break;                    
+                case '1':{
+                    char isUsingAID;
+                    bool isAsking = true;
+                    bool usingAID;
+                    while (isAsking) {
+                        cout << "Using Auto ID function? [Y/N]:";
+                        cin >> isUsingAID;
+                        if (isUsingAID == 'y' || isUsingAID == 'Y') {
+                            usingAID = true;
+                            isAsking = false;
+                        } else if (isUsingAID == 'n' || isUsingAID == 'N') {
+                            usingAID = false;
+                            isAsking = false;
+                        }
+                        else {
+                            cout << "Input is invallid, input must be \'y\' or \'n\'\n";
+                            isAsking = true;
+                        }
+                    }
+
+                    inputStudentData(studentID, studentName, scores, attendances, studentLimit, usingAID);                             // Input Student Data
+                    break;
+                    }                   
                     
-                case 2: cout << "Average score among " << studentLimit << " students is "                                        // Calculate Average Score
+                case '2': {cout << "Average score among " << studentLimit << " students is "                                        // Calculate Average Score
                              << calculateAverageScores(scores, studentLimit) << " over 100. ["                     
                              << calculateAverageScores(scores, studentLimit) << "/100]\n" << endl;                    
-                    break;                    
+                    break; }                   
                     
-                case 3: displayStudentRecords(studentID, studentName, scores, attendances, studentLimit);                        // Display Student(s) Records
-                    break;                    
+                case '3': {displayStudentRecords(studentID, studentName, scores, attendances, studentLimit);                        // Display Student(s) Records
+                    break; }                   
                     
-                case 4: runProgram = false;                                                                                      // Exit Program
-                    break;                    
+                case '4': {runProgram = false;                                                                                      // Exit Program
+                    break; }                   
                     
-                default: cout << "Function not Available" << endl;                                                               // Error Catch if function code inputed is invalid
-                    break;
+                default: {cout << "Function not Available" << endl;                                                                       // Error Catch if function code inputed is invalid
+                    break;}
             }
         }
 
         // if using sample data[only during testing and debugging]
         if (usingSampleData){
             switch (funcCode) {
-                case 1: cout << "\nAttention: \"usingSampleData\" is enable. Please disable first before use\n" << endl;         // Input Student Data
+                case '1': cout << "\nAttention: \"usingSampleData\" is enable. Please disable first before use\n" << endl;         // Input Student Data
                     break;
 
-                case 2: cout << "Average score among " << usingLimitedSample << " students is "                                  // Calculate Average Score
+                case '2': cout << "Average score among " << usingLimitedSample << " students is "                                  // Calculate Average Score
                              << calculateAverageScores(sampleScores, usingLimitedSample) << " over 100. [" 
                              << calculateAverageScores(sampleScores, usingLimitedSample) << "/100]\n" << endl;
                     break;
 
-                case 3: displayStudentRecords(sampleId, sampleName, sampleScores, sampleAttendance, usingLimitedSample);         // Display Student(s) Records
+                case '3': displayStudentRecords(sampleId, sampleName, sampleScores, sampleAttendance, usingLimitedSample);         // Display Student(s) Records
                     break;
                     
-                case 4: runProgram = false;                                                                                      // Exit Program
+                case '4': runProgram = false;                                                                                      // Exit Program
                     break;
 
-                default: cout << "Function not Available" << endl;                                                               // Error Catch if function code inputed is invalid
+                default: cout << "Function not Available" << endl;                                                                       // Error Catch if function code inputed is invalid
                     break;
             }
         }
@@ -183,18 +219,116 @@ void inputStudentData(  int (&ids)[],         // List of IDs
                         string (&names)[],    // List of Names
                         double (&scores)[],   // List of Scores
                         int (&attendances)[], // List of Attendance
-                        int maxData) {        // Maximum number of student
+                        int maxData,
+                        bool autoId = false) {        // Maximum number of student
     // input operation
     for (int dataIndex = 0; dataIndex < maxData; dataIndex++) {
-        cout << "\nInput Student" << (dataIndex + 1) << " Data:\n" << endl;
+        cout << "\nInput Student "<< dataIndex + 1 << " Data:\n" << endl;
 
-        cout << "ID"         << setfill('-') << setw(13) << ":"; cin >> ids[dataIndex];
-        cout << "Name"       << setfill('-') << setw(11) << ":"; cin >> names[dataIndex];
-        cout << "Score"      << setfill('-') << setw(10) << ":"; cin >> scores[dataIndex];
-        cout << "Attendance" << setfill('-') << setw(5)  << ":"; cin >> attendances[dataIndex];
+//------------------------------------------------------- INPUT ID -------------------------------------------------------//
+        // active if program didn't use auto generated ID
+        if (!autoId) {
+            // Input Id
+            bool correctIdInput = false;
+            while(!correctIdInput) {
+                string inputId;
+                cout << "Id valid input: number only" << endl;
+                cout << "ID"         << setfill('-') << setw(13) << ":"; cin >> inputId;
+                cout << "Input :" << inputId << endl;
+
+                if (!(hasAlpha(inputId) || hasPoint(inputId))) {
+                    int inputIdInt = 80000 + strToInt(inputId);
+                    bool existed = false;
+                    for (int idIndex = 0; idIndex < maxData; idIndex++) if (inputIdInt == ids[idIndex]) existed = true;
+                    if (!existed) {
+                        ids[dataIndex] = inputIdInt;
+                        cout << endl;
+                        correctIdInput = true;
+                    } else cout << "Id " << inputIdInt << " already exist\n" << endl;
+                    
+                } else cout << "Id must be integer:\n" << endl;
+            }
+        }
+
+        // active if program use auto generated ID
+        if (autoId) {
+            cout << "ID"         << setfill('-') << setw(13) << ":";
+            ids[dataIndex] = 80000 + dataIndex;
+            cout << ids[dataIndex] << endl;
+        }
+
+//------------------------------------------------------ INPUT NAME ------------------------------------------------------//
+        // Input Name
+        string inputName;
+        string frstName;
+        string scndName;
+        
+        bool existed = false;
+        while (!existed){
+            cout << "Name"      << setfill('-') << setw(11) << ":";
+            cin >> frstName;
+            cin >> scndName;
+
+            inputName = frstName + " " + scndName;
+            
+            for (int nameIndex = 0; nameIndex < maxData; nameIndex++) if (inputName == names[nameIndex]) existed = true;
+            if (!existed) {
+                names[dataIndex] = inputName;
+                cout << endl;
+                existed = true;
+            } else {
+                cout << "Name " << inputName << " already exist:\n" << endl;
+                existed = false;
+            }
+        }
+
+
+//----------------------------------------------------- INPUT SCORE ------------------------------------------------------//
+        const double minScore = 0;
+        const double maxScore = 100;
+        bool correctScoreInput = false;
+        while(!correctScoreInput) {
+            string inputScore = "0";
+            cout << "Score valid value: 0 - 100" << endl;
+            cout << "Score"      << setfill('-') << setw(10) << ":"; cin >> inputScore;
+            if (!hasAlpha(inputScore)) {
+                double inputScoreDouble = strToDouble(inputScore);
+                if (inputScoreDouble >= minScore  && inputScoreDouble <= maxScore) {
+                    scores[dataIndex] = inputScoreDouble;
+                    cout << endl;
+                    correctScoreInput = true;
+                } else {
+                    cout << "Invalid Input: Score is out of range:\n" << endl;
+                    correctScoreInput = false;
+                }
+                
+            } else {
+                cout << "Scores must be numbers only:\n" << endl;
+                correctScoreInput = false;
+            }
+        }
+
+//--------------------------------------------------- INPUT ATTENDENCE ---------------------------------------------------//
+        const double minAttendance = 0;
+        const double maxAttendance = 40;
+        bool correctAttendanceInput = false;
+        while (!correctAttendanceInput) {
+            string inputAttendance = "0";
+            cout << "Attendance valid Input: 0 - 40" << endl;
+            cout << "Attendance" << setfill('-') << setw(5)  << ":"; cin >> inputAttendance;
+            if (!hasAlpha(inputAttendance)) {
+                int inputAttendanceInt = strToInt(inputAttendance);
+                if (minAttendance <= inputAttendanceInt && inputAttendanceInt <= maxAttendance) {
+                    attendances[dataIndex] = inputAttendanceInt;
+                    cout << endl;
+                    correctAttendanceInput = true;
+                } else cout << "Invalid Input: Attendance is out of range:\n" << endl;
+               
+            } else cout << "Attendance must be numbers only:\n" << endl;
+        }
 
         // Print out stored data
-        cout << "\nStudent " << dataIndex << ", Completed.";
+        cout << "\nStudent " << dataIndex + 1 << ", Completed.";
         cout << "\nInformation:\n";
 
         cout << "|->ID"           << setfill('-') << setw(13) << ":" << ids[dataIndex]         << endl;
