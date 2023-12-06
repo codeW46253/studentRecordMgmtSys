@@ -8,8 +8,7 @@
  * This code also gives user to check whether the string can be convert into an
  * integer or a double with floating point.
  * 
- * Programer : Zul Iskandar bin Zainorhan
- * Date      : 20th November 2023
+ * 
  * ------------------------------------------------------------------------------------------------------------------------------
 */
 
@@ -94,6 +93,10 @@ bool canBeDouble(std::string strIn) {
 // Convert string to integer
 int strToInt(std::string strIn) {
     int strNumber = 0;
+
+    bool signedNumber;
+    if (strIn[0] == '-') signedNumber = true;
+
     for (int charIndex = 0; charIndex < (int)strIn.length(); charIndex++) {
         int numberPlace = (int)strIn.length() - (charIndex + 1);
         if (strIn[charIndex] == '0') strNumber += (0 * pow(10, numberPlace));
@@ -109,7 +112,7 @@ int strToInt(std::string strIn) {
         
     }
 
-    return strNumber;
+    return (signedNumber ? 0 - strNumber : strNumber);
 }
 
 // Convert string to floating point[double]
@@ -118,6 +121,9 @@ double strToDouble(std::string strIn) {
     double lpoint = 0;
     double rpoint = 0;
     double strDouble = 0.00;
+
+    bool signedNumber;
+    if (strIn[0] == '-') signedNumber = true;
 
     int pointIndex = 0;
     // find point index
@@ -159,6 +165,6 @@ double strToDouble(std::string strIn) {
     }
     strDouble =  lpoint + (rpoint / pow(10, rIndex));
 
-    return strDouble;
+    return (signedNumber ? 0 - strDouble : strDouble);
 }
 
